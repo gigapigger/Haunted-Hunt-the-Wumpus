@@ -11,7 +11,7 @@ namespace Wumpus
 {
 	class GameControl : UIControllerInterface
 	{
-		int correctAnswerIndex = 4;
+		int correctAnswerIndex = 3;
 
 		int correctAnswers = 0;
 		int incorrectAnswers = 0;
@@ -29,8 +29,11 @@ namespace Wumpus
 
         public GameControl()
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             Launcher l = new Launcher(this);
-            l.ShowDialog();
+            Application.Run(l);
         }
 
         #region Methods
@@ -124,8 +127,16 @@ namespace Wumpus
         bool UIControllerInterface.AnswerTrivia(int answerChoice)
         {
             bool correct;
-            if (correctAnswerIndex == answerChoice) correct = true;
-            else correct = false;
+            if (correctAnswerIndex == answerChoice)
+            {
+                correct = true;
+                correctAnswers++;
+            }
+            else
+            {
+                correct = false;
+                incorrectAnswers++;
+            }
 
             if (!correct)
                 missedTrivia.Add(lastTrivia);
@@ -247,20 +258,21 @@ namespace Wumpus
 			get { return incorrectAnswers; }
         }
 
-        int UIControllerInterface.TotalSessionQuestions
+        public int TotalSessionQuestions
         {
 			get { return numberOfQs; }
         }
 
-        int UIControllerInterface.TotalAnsweredQuestions
+        public int TotalAnsweredQuestions
         {
 			get { return correctAnswers + incorrectAnswers; }
         }
 
         bool UIControllerInterface.WonTrivia
         {
-			get { return (correctAnswers > incorrectAnswers); }
+			get { return ((correctAnswers > incorrectAnswers) && (TotalAnsweredQuestions >= TotalSessionQuestions)); }
         }
+
         #endregion
     }
 }
