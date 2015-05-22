@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Wumpus
 {
-    public class HighScore
+    class HighScore
     {
         // A list that tracks the high scores
         private List<Score> scores = new List<Score>();

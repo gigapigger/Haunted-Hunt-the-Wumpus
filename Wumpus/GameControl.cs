@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Wumpus
 {
-	class GameControl : UIControllerInterface
+	public class GameControl : UIControllerInterface
 	{
 		int correctAnswerIndex = 3;
 
